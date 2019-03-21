@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import './App.scss'
-import * as util from './util'
+import React, { Component } from "react";
+import "./index.scss";
+import * as util from "./util";
 
 class Calendar extends Component {
   state = {
@@ -13,56 +13,56 @@ class Calendar extends Component {
     month: null,
     day: null,
     showCalendar: false,
-    value: ''
-  }
-  calendarRef = React.createRef()
+    value: ""
+  };
+  calendarRef = React.createRef();
 
   setCalendar(year, month) {
-    let calendar = util.getCalender(year, month)
-    calendar = util.chunk(calendar, 7)
+    let calendar = util.getCalender(year, month);
+    calendar = util.chunk(calendar, 7);
     this.setState({
       calendar
-    })
+    });
   }
 
   showCalendar = (e, ifShow) => {
-    e.stopPropagation()
+    e.stopPropagation();
     this.setState({
       showCalendar: ifShow
-    })
-  }
+    });
+  };
 
   setMonthList() {
-    let monthList = util.chunk(util.MonthList, 3)
+    let monthList = util.chunk(util.MonthList, 3);
     this.setState({
       monthList
-    })
+    });
   }
 
   setYearList(year) {
-    let yearList = util.chunk(util.getYearList(year), 3)
+    let yearList = util.chunk(util.getYearList(year), 3);
     this.setState({
       yearList
-    })
+    });
   }
 
   componentDidMount = () => {
-    let self = this
-    document.querySelector('#root').onclick = e => {
+    let self = this;
+    document.querySelector("#root").onclick = e => {
       if (
         !this.calendarRef.current.contains(e.target) ||
         this.calendarRef.current === e.target
       ) {
         self.setState({
           showCalendar: false
-        })
+        });
       } else {
       }
-    }
-    const date = new Date()
-    const year = date.getFullYear()
-    const month = date.getMonth()
-    const day = date.getDate()
+    };
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
     this.setState(
       {
         year,
@@ -70,19 +70,19 @@ class Calendar extends Component {
         day
       },
       () => {
-        this.setYearList(year)
-        this.setMonthList()
-        this.setCalendar(this.state.year, this.state.month)
+        this.setYearList(year);
+        this.setMonthList();
+        this.setCalendar(this.state.year, this.state.month);
       }
-    )
-  }
+    );
+  };
 
   monthAdd = () => {
-    let month = this.state.month + 1
-    let year = this.state.year
+    let month = this.state.month + 1;
+    let year = this.state.year;
     if (month > 11) {
-      year += 1
-      month = month -= 12
+      year += 1;
+      month = month -= 12;
     }
     this.setState(
       {
@@ -90,27 +90,27 @@ class Calendar extends Component {
         month
       },
       () => {
-        this.setCalendar(this.state.year, this.state.month)
+        this.setCalendar(this.state.year, this.state.month);
       }
-    )
-  }
+    );
+  };
   yearAdd = () => {
     this.setState(
       {
         year: this.state.year + 1
       },
       () => {
-        this.setCalendar(this.state.year, this.state.month)
+        this.setCalendar(this.state.year, this.state.month);
       }
-    )
-  }
+    );
+  };
 
   monthMinus = () => {
-    let month = this.state.month - 1
-    let year = this.state.year
+    let month = this.state.month - 1;
+    let year = this.state.year;
     if (month < 0) {
-      month += 12
-      year -= 1
+      month += 12;
+      year -= 1;
     }
     this.setState(
       {
@@ -118,119 +118,120 @@ class Calendar extends Component {
         year
       },
       () => {
-        this.setCalendar(this.state.year, this.state.month)
+        this.setCalendar(this.state.year, this.state.month);
       }
-    )
-  }
+    );
+  };
   yearMinus = () => {
     this.setState(
       {
         year: this.state.year - 1
       },
       () => {
-        this.setCalendar(this.state.year, this.state.month)
+        this.setCalendar(this.state.year, this.state.month);
       }
-    )
-  }
+    );
+  };
 
   monthListMinus = () => {
-    let year = this.state.year - 1
+    let year = this.state.year - 1;
     this.setState({
       year
-    })
-  }
+    });
+  };
   monthListAdd = () => {
-    let year = this.state.year + 1
+    let year = this.state.year + 1;
     this.setState({
       year
-    })
-  }
+    });
+  };
 
   monthClick = item => {
     this.setState({
       showMonthList: !this.state.showMonthList,
       month: item.value - 1
-    })
-    this.setCalendar(this.state.year, item.value - 1)
-  }
+    });
+    this.setCalendar(this.state.year, item.value - 1);
+  };
 
   yearListMinus = () => {
-    let year = this.state.year - 10
+    let year = this.state.year - 10;
     this.setState(
       {
         year
       },
       () => {
-        this.setYearList(year)
+        this.setYearList(year);
       }
-    )
-  }
+    );
+  };
   yearListAdd = () => {
-    let year = this.state.year + 10
+    let year = this.state.year + 10;
     this.setState(
       {
         year
       },
       () => {
-        this.setYearList(year)
+        this.setYearList(year);
       }
-    )
-  }
+    );
+  };
 
   yearClick = item => {
-    if (item.year === 'pre') {
-      let year = item.value
-      this.setYearList(year)
-      return
-    } else if (item.year === 'next') {
-      let year = item.value
-      this.setYearList(year)
-      return
+    if (item.year === "pre") {
+      let year = item.value;
+      this.setYearList(year);
+      return;
+    } else if (item.year === "next") {
+      let year = item.value;
+      this.setYearList(year);
+      return;
     }
     this.setState({
       showYearList: !this.state.showYearList,
       year: item.value
-    })
-    this.setCalendar(item.value, this.state.month)
-  }
+    });
+    this.setCalendar(item.value, this.state.month);
+  };
 
   dayClick = (e, item) => {
-    if (item.month === 'next') {
-      this.monthAdd()
-    } else if (item.month === 'pre') {
-      this.monthMinus()
+    if (item.month === "next") {
+      this.monthAdd();
+    } else if (item.month === "pre") {
+      this.monthMinus();
     } else {
-      const value = `${this.state.year}-${this.state.month + 1}-${item.day}`
+      const value = `${this.state.year}-${this.state.month + 1}-${item.day}`;
+      this.props.changeDate(value);
       this.setState({
         value,
         showCalendar: false
-      })
-      return
+      });
+      return;
     }
-  }
+  };
 
   showMonthList = () => {
     this.setState({
       showMonthList: !this.state.showMonthList
-    })
-  }
+    });
+  };
 
   showYearList = () => {
     this.setState({
       showYearList: !this.state.showYearList
-    })
-  }
+    });
+  };
 
   inputClick(e) {
-    console.log(e.target)
-    e.stopPropagation()
+    console.log(e.target);
+    e.stopPropagation();
   }
 
   render() {
-    const date = new Date()
-    const year = date.getFullYear()
-    const month = date.getMonth()
-    const day = date.getDate()
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
     return (
       <div className="CalendarAppBox" ref={this.calendarRef}>
         <input
@@ -254,10 +255,10 @@ class Calendar extends Component {
                   <div className="CalendarHeaderDateBox HeaderBox">
                     <span>
                       {this.state.yearList &&
-                        this.state.yearList[0][0]['label']}
+                        this.state.yearList[0][0]["label"]}
                       -
                       {this.state.yearList &&
-                        this.state.yearList[3][2]['label']}
+                        this.state.yearList[3][2]["label"]}
                     </span>
                   </div>
                   <div className="CalendarHeaderRightBox HeaderBox">
@@ -284,20 +285,20 @@ class Calendar extends Component {
                                   <div
                                     onClick={() => this.yearClick(line)}
                                     className={
-                                      'year ' +
+                                      "year " +
                                       line.year +
                                       (this.state.year === line.value
-                                        ? ' thisYear'
-                                        : '')
+                                        ? " thisYear"
+                                        : "")
                                     }
                                   >
                                     {line.label}
                                   </div>
                                 </td>
-                              )
+                              );
                             })}
                           </tr>
-                        )
+                        );
                       })}
                     </tbody>
                   </table>
@@ -340,15 +341,15 @@ class Calendar extends Component {
                                 >
                                   <div
                                     onClick={() => this.monthClick(line)}
-                                    className={'month'}
+                                    className={"month"}
                                   >
                                     {line.label}
                                   </div>
                                 </td>
-                              )
+                              );
                             })}
                           </tr>
-                        )
+                        );
                       })}
                     </tbody>
                   </table>
@@ -399,21 +400,21 @@ class Calendar extends Component {
                                   onClick={e => this.dayClick(e, line)}
                                   className={
                                     line.month +
-                                    ' day' +
+                                    " day" +
                                     (this.state.month === month &&
                                     line.day === day &&
                                     this.state.year === year
-                                      ? ' today'
-                                      : '')
+                                      ? " today"
+                                      : "")
                                   }
                                 >
                                   {line.day}
                                 </div>
                               </td>
-                            )
+                            );
                           })}
                         </tr>
-                      )
+                      );
                     })}
                   </tbody>
                 </table>
@@ -422,8 +423,8 @@ class Calendar extends Component {
           </div>
         )}
       </div>
-    )
+    );
   }
 }
 
-export default Calendar
+export default Calendar;
